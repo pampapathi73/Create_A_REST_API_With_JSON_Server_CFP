@@ -1,0 +1,64 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>post data</title>
+ 
+</head>
+<body>
+    <form id="form" method="post">
+        <input type="text" id="FirstName" placeholder="firstname"/>
+        <input type="text" id="LastName" placeholder="lastname"/>
+        <input type="text" id="Email" placeholder="email">
+        <input type="number" id="Id" placeholder="id"/>
+        <input type="submit" value="Add Todo"/>
+    </form>
+    <div id="results">
+
+    </div>
+
+
+</body>
+<script>
+    var form =document.getElementById('form')
+    form.addEventListener('submit',function(e){
+        e.preventDefault()
+        var firstname = document.getElementById('FirstName').value
+        var lastName = document.getElementById('LastName').value
+        var email = document.getElementById('Email').value
+        var id = document.getElementById('Id').value
+
+        fetch("http://localhost:3000/employees",{
+
+            method:'POST',
+            body:JSON.stringify({
+                fname:firstname,
+               lname:lastName,
+                email:email,
+                id:id
+            }),
+            headers:{
+                "Content-Type":"application/json; charset=UTF-8"
+            }
+        })
+        .then(function(response){
+            return response.json()
+
+        })
+        .then(function(data)
+        {
+            console.log(data);
+           var results= document.getElementById('results')
+           results.innerHTML = `<p> the title of employee details is ${data.fname}</p>
+           <p> the title of employee details is ${data.lname}</p>
+           <p> the title of employee details is ${data.email}</p>
+           <p> the title of employee details is ${data.id}</p>
+           `
+        })
+
+
+    })
+</script>
+</html>

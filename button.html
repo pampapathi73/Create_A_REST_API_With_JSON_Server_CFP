@@ -1,0 +1,56 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fetch API</title>
+    <link type="text/javascript" href="./fetching.js">
+</head>
+
+<body>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Emp id</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>email</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="data">
+
+            </tbody>
+        </table>
+    </div>
+    <script>
+        fetch("http://localhost:3000/employees").then(
+            res => { 
+                    res.json().then(
+                        data => {
+                            console.log(data);
+                            if (data.length > 0) {
+                                var temp = "";
+                                data.forEach((u) => {
+                                    temp += "<tr>";
+                                  
+                                    temp += "<td>" + u.FirstName + "</td>";
+                                    temp += "<td>" + u.LastName + "</td>";
+                                    temp += "<td>" + u.email + "</td></tr>";
+                                    temp += "<td>" + u.id + "</td>";
+                                })
+                                document.getElementById("data").innerHTML = temp;
+                            }
+                        }    
+                )
+           }    
+        
+
+        )
+
+    </script>
+</body>
+
+</html>
